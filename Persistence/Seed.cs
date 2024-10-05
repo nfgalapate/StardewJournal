@@ -137,7 +137,7 @@ namespace Persistence
                     Name = "Alex",
                     BirthSeason = "Summer",
                     Birthday = 13,
-                    Description = "Alex loves sports and hanging out at the beach. He is quite arrogant and brags to everyone that he is going to be a professional athlete. Is his cockiness just a facade to mask his crushing self-doubt? Is he using his sports dream to fill the void left by the disappearance of his parents? Or is he just a brazen youth trying to 'look cool?",
+                    Description = "Alex loves sports and hanging out at the beach. He is quite arrogant and brags to everyone that he is going to be a professional athlete. Is his cockiness just a facade to mask his crushing self-doubt? Is he using his sports dream to fill the void left by the disappearance of his parents? Or is he just a brazen youth trying to \'look cool?\'",
                     IsMarriageCandidate = true
                 },
                 new Villager {
@@ -179,7 +179,7 @@ namespace Persistence
                     Name = "Abigail",
                     BirthSeason = "Fall",
                     Birthday = 13,
-                    Description = "Abigail lives at the general store with her parents. She sometimes fights with her mom, who worries about Abigail's \"alternative lifestyle\". Her mom has the following to say: \"I wish Abby would dress more appropriately and stop dyeing her hair blue. She has such a wonderful natural hair color, just like her grandmother did. Oh, and I wish she\'d find some wholesome interests instead of this occult nonsense she's into.\" You might find Abigail alone in the graveyard, or maybe out in a rainstorm looking for frogs.",
+                    Description = "Abigail lives at the general store with her parents. She sometimes fights with her mom, who worries about Abigail\'s \"alternative lifestyle\". Her mom has the following to say: \"I wish Abby would dress more appropriately and stop dyeing her hair blue. She has such a wonderful natural hair color, just like her grandmother did. Oh, and I wish she\'d find some wholesome interests instead of this occult nonsense she's into.\" You might find Abigail alone in the graveyard, or maybe out in a rainstorm looking for frogs.",
                     IsMarriageCandidate = true
                 },
                 new Villager {
