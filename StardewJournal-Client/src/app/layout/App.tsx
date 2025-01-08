@@ -1,38 +1,73 @@
 import { Fragment, useEffect, useState } from 'react'
 import './styles.css'
 import axios from 'axios';
-import { Container, Header, List } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { Activity } from '../models/activity';
-import { Villager } from '../models/villager';
 import NavBar from './NavBar';
-import ActivityDashboard from '../../features/activities/dashboard/ActivitiesDashboard';
+import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
+import {v4 as uuid} from 'uuid';
 
 function App() {
   const [activities, setActivities ] = useState<Activity[]>([]);
-  const [villagers, setVillagers] = useState<Villager[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
+  const [editMode, setEditMode] = useState(false);
 
   //hook useEffect
   useEffect(() => {
     axios.get<Activity[]>('http://localhost:5000/api/activities')
       .then(response => {
         setActivities(response.data)
-      });
-  }, []);
+      })
+  }, [])
 
-  useEffect(() => {
-    axios.get<Villager[]>('http://localhost:5000/api/villagers')
-      .then(response => {
-        setVillagers(response.data)
-      });
-  }, []);
+  function handleSelectActivity(id: string) {
+    const foundActivity = activities.find(x => x.id === id);
+    setSelectedActivity(foundActivity);
+  }
+
+  function handleCancelSelectActivity()
+  {
+    setSelectedActivity(undefined);
+  }
+
+  function handleFormOpen(id?: string) {
+    id ? handleSelectActivity(id) : handleCancelSelectActivity();
+    setEditMode(true);
+  }
+
+  function handleFormClose() {
+    setEditMode(false);
+  }
+
+  function handleCreateOrEditActivity(activity: Activity) {
+    //it takes all activities with id that is not equal to id being edited and concatenated with the new activity
+    activity.id ? setActivities([...activities.filter(x => x.id !== activity.id), activity]) //if we have id, then we are editing
+    : setActivities([...activities, {...activity, id: uuid()}]);
+
+    setEditMode(false);
+    setSelectedActivity(activity);
+  }
+
+  function handleDeleteActivity(id: string) {
+    setActivities([...activities.filter(x => x.id!== id)])
+  }
 
   return (
     <Fragment>
-      <NavBar />
+      <NavBar openForm={handleFormOpen}/>
 
       <Container style={{marginTop: '7em'}}>
-        <ActivityDashboard activities={activities} />
-      
+        <ActivityDashboard 
+          activities={activities} 
+          selectedActivity={selectedActivity}
+          selectActivity={handleSelectActivity}
+          cancelSelectActivity={handleCancelSelectActivity}
+          editMode={editMode}
+          openForm={handleFormOpen}
+          closeForm={handleFormClose}
+          createOrEdit={handleCreateOrEditActivity}
+          deleteActivity={handleDeleteActivity}
+        />
       </Container>
     </Fragment>
   );
